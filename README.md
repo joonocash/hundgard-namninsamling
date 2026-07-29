@@ -114,3 +114,5 @@ Just nu skyddas formuläret av ett honeypot-fält och rate limiting per IP
 (`lib/rateLimit.ts`). Om det inte räcker är nästa steg att lägga till
 [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) på
 formuläret — kräver bara ett gratis Cloudflare-konto och två nycklar.
+
+Test
