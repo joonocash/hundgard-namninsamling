@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 function Message({ title, body }: { title: string; body: string }) {
   return (
     <main className="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-4 py-10 text-center">
