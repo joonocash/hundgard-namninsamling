@@ -1,0 +1,16 @@
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Pull latest and rebuild
+        run: |
+          cd ~/hundgard-namninsamling
+          git fetch origin
+          git reset --hard origin/master
+          docker compose up -d --build
