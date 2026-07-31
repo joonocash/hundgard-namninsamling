@@ -1,44 +1,200 @@
-import ProgressBar from "@/components/ProgressBar";
-import SignatureForm from "@/components/SignatureForm";
-import { prisma } from "@/lib/prisma";
+import Image from "next/image";
 
-export const dynamic = "force-dynamic";
+const CTA_URL = "[KLISTRA IN URL HÄR]";
 
-export default async function Home() {
-  const verifiedCount = await prisma.signature.count({
-    where: { verifiedAt: { not: null } },
-  });
-  const goal = Number(process.env.SIGNATURE_GOAL ?? 1000);
+const features: { title: string; icon: React.ReactNode }[] = [
+  {
+    title: "Skapa en trygg plats där hundar kan springa fritt.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 12.75 11.25 15 15 9.75M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v4.286c0 3.51-2.02 6.784-4.918 8.767a26.6 26.6 0 0 1-3.626 2.048.75.75 0 0 1-.912 0 26.6 26.6 0 0 1-3.626-2.048C5.02 15.844 3 12.57 3 9.06V4.774c0-.54.384-1.006.917-1.096A50.317 50.317 0 0 1 12 3Z"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Bidra till ökad gemenskap mellan grannar.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Göra området ännu mer attraktivt och levande.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "Ta till vara på en yta som idag inte används.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.443a1.125 1.125 0 0 0-1.006 0L3.622 5.88C3.24 6.07 3 6.462 3 6.887V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"
+        />
+      </svg>
+    ),
+  },
+];
 
+function Cta() {
   return (
-    <main className="mx-auto flex min-h-screen max-w-xl flex-col gap-8 px-4 py-10">
-      <header className="text-center">
-        <h1 className="text-3xl font-bold text-primary">Ja till en hundgård!</h1>
-        <p className="mt-3 text-ink">
-          Vi vill att Göteborgs kommun utreder en inhägnad hundgård vid{" "}
-          <strong>[PLATS/OMRÅDE]</strong>. Hjälp oss samla {goal} underskrifter så
-          tar kommunen upp frågan.
+    <a
+      href={CTA_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block rounded-full bg-[#e2703a] px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-black/30 transition hover:bg-[#c85f2e]"
+    >
+      Skriv under här
+    </a>
+  );
+}
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-[#171310]">
+      <div className="mx-auto flex max-w-3xl flex-col gap-12 px-4 py-12 sm:px-6">
+        <section className="text-center">
+          <h1 className="text-3xl font-bold text-[#f2c879] sm:text-4xl">
+            Ja till en hundrastgård i Stampen!
+          </h1>
+          <p className="mt-4 text-lg leading-relaxed text-[#f0e6da]">
+            En obebyggd yta vid Stampens kyrkogård skulle kunna bli en trygg och
+            efterlängtad hundrastgård. Hjälp oss visa Göteborgs stad att vi är
+            många som vill se det hända.
+          </p>
+          <div className="mt-6">
+            <Cta />
+          </div>
+        </section>
+
+        <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <figure className="overflow-hidden rounded-2xl bg-[#241d17]">
+            <div className="relative aspect-[4/3] w-full">
+              <Image
+                src="/fore.jpg"
+                alt="Den obebyggda ytan vid Stampens kyrkogård som den ser ut idag"
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="px-4 py-3 text-center text-sm font-medium uppercase tracking-wide text-[#b8ab9c]">
+              Idag
+            </figcaption>
+          </figure>
+
+          <figure className="overflow-hidden rounded-2xl bg-[#241d17]">
+            <div className="relative aspect-[4/3] w-full">
+              <Image
+                src="/efter.jpg"
+                alt="Illustration av hur platsen skulle kunna bli som hundrastgård"
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="px-4 py-3 text-center text-sm font-medium uppercase tracking-wide text-[#b8ab9c]">
+              Så här skulle det kunna bli
+            </figcaption>
+          </figure>
+        </section>
+
+        <section className="space-y-4 text-base leading-relaxed text-[#f0e6da]">
+          <p>
+            Även människans bästa vän behöver en plats för att springa av sig och
+            ha roligt. I centrala Göteborg finns alldeles för få hundrastgårdar,
+            men i Stampen finns en yta som är perfekt för ändamålet!
+          </p>
+          <p>
+            Vi är många hundägare i centrala Göteborg som efterfrågar, önskar och
+            längtar efter en lättillgänglig hundrastgård.
+          </p>
+          <p>
+            I dagsläget finns en obebyggd yta i närheten av Stampens kyrkogård där
+            en förskola tidigare låg. Marken har stått oanvänd under lång tid, men
+            skulle kunna förvandlas till något som skapar glädje, gemenskap och
+            ökad trivsel för många boende i området med omnejd.
+          </p>
+          <p>
+            En hundrastgård skulle ge oss en trygg och naturlig plats där hundar
+            kan springa lösa, leka och få den motion och socialisering de behöver,
+            samtidigt som hundägare får en trevlig mötesplats. I ett tätbebyggt
+            område som Stampen är det ont om säkra ytor där hundar kan vara lösa
+            och vi är många som efterfrågar en sådan mötesplats för både oss och
+            de fyrbenta.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-center text-xl font-semibold text-[#f2c879]">
+            En hundrastgård skulle:
+          </h2>
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {features.map((feature) => (
+              <div
+                key={feature.title}
+                className="flex items-start gap-3 rounded-2xl bg-[#241d17] p-5"
+              >
+                <span className="mt-0.5 shrink-0 text-[#e2703a]">{feature.icon}</span>
+                <p className="text-[#f0e6da]">{feature.title}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <p className="text-base leading-relaxed text-[#f0e6da]">
+          Detta är inte bara en önskan från en enskild person. Vi är många som
+          saknar denna typ av facilitet och det kommer underskrifterna i detta
+          förslag att styrka.
         </p>
-      </header>
 
-      <ProgressBar initialCount={verifiedCount} goal={goal} />
+        <section>
+          <figure className="overflow-hidden rounded-2xl bg-[#241d17]">
+            <div className="relative aspect-[16/10] w-full">
+              <Image
+                src="/karta.jpg"
+                alt="Karta som visar platsens läge i Stampen"
+                fill
+                sizes="100vw"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="px-4 py-3 text-center text-sm text-[#b8ab9c]">
+              Platsen är inringad på kartan.
+            </figcaption>
+          </figure>
+        </section>
 
-      <SignatureForm />
-
-      <section className="rounded-2xl bg-white p-6 shadow-md">
-        <h2 className="text-lg font-semibold text-primary">Varför just här?</h2>
-        <ul className="mt-3 list-disc space-y-2 pl-5 text-ink">
-          <li>[Beskriv platsen — storlek, läge, hur den nås.]</li>
-          <li>[Beskriv behovet — t.ex. avstånd till närmaste hundgård idag.]</li>
-          <li>[Beskriv eventuella fördelar — trygghet, mötesplats, mm.]</li>
-        </ul>
-      </section>
-
-      <footer className="pb-6 text-center text-sm text-gray-500">
-        <a href="/integritetspolicy" className="underline">
-          Integritetspolicy
-        </a>
-      </footer>
+        <section className="text-center">
+          <p className="text-lg leading-relaxed text-[#f0e6da]">
+            Tycker inte du, precis som vi, att Göteborgs stad borde se
+            möjligheten att, med mycket enkla medel, utveckla denna idag
+            outnyttjade yta till en välkomnande hundrastgård som kommer att
+            uppskattas av många (med och utan morrhår och päls) under en lång tid
+            framöver?
+          </p>
+          <div className="mt-6">
+            <Cta />
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
