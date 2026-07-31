@@ -1,4 +1,6 @@
 import ExpandableImage from "@/components/ExpandableImage";
+import CtaButton from "@/components/CtaButton";
+import Tracker from "@/components/Tracker";
 
 const CTA_URL = "[KLISTRA IN URL HÄR]";
 
@@ -53,22 +55,10 @@ const features: { title: string; icon: React.ReactNode }[] = [
   },
 ];
 
-function Cta() {
-  return (
-    <a
-      href={CTA_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block rounded-full bg-[#e2703a] px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-black/30 transition hover:bg-[#c85f2e]"
-    >
-      Skriv under här
-    </a>
-  );
-}
-
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#171310]">
+      <Tracker />
       <div className="mx-auto flex max-w-3xl flex-col gap-12 px-4 py-12 sm:px-6">
         <section className="text-center">
           <h1 className="text-3xl font-bold text-[#f2c879] sm:text-4xl">
@@ -80,7 +70,7 @@ export default function Home() {
             många som vill se det hända.
           </p>
           <div className="mt-6">
-            <Cta />
+            <CtaButton href={CTA_URL}>Skriv under här</CtaButton>
           </div>
         </section>
 
@@ -182,7 +172,7 @@ export default function Home() {
             framöver?
           </p>
           <div className="mt-6">
-            <Cta />
+            <CtaButton href={CTA_URL}>Skriv under här</CtaButton>
           </div>
         </section>
       </div>
