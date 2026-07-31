@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ExpandableImage from "@/components/ExpandableImage";
 
 const CTA_URL = "[KLISTRA IN URL HÄR]";
 
@@ -86,30 +86,24 @@ export default function Home() {
 
         <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <figure className="overflow-hidden rounded-2xl bg-[#241d17]">
-            <div className="relative aspect-[4/3] w-full">
-              <Image
-                src="/fore.jpg"
-                alt="Den obebyggda ytan vid Stampens kyrkogård som den ser ut idag"
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
+            <ExpandableImage
+              src="/fore.jpg"
+              alt="Den obebyggda ytan vid Stampens kyrkogård som den ser ut idag"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              aspectClassName="aspect-[4/3]"
+            />
             <figcaption className="px-4 py-3 text-center text-sm font-medium uppercase tracking-wide text-[#b8ab9c]">
               Idag
             </figcaption>
           </figure>
 
           <figure className="overflow-hidden rounded-2xl bg-[#241d17]">
-            <div className="relative aspect-[4/3] w-full">
-              <Image
-                src="/efter.jpg"
-                alt="Illustration av hur platsen skulle kunna bli som hundrastgård"
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
+            <ExpandableImage
+              src="/efter.jpg"
+              alt="Illustration av hur platsen skulle kunna bli som hundrastgård"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              aspectClassName="aspect-[4/3]"
+            />
             <figcaption className="px-4 py-3 text-center text-sm font-medium uppercase tracking-wide text-[#b8ab9c]">
               Så här skulle det kunna bli
             </figcaption>
@@ -167,15 +161,12 @@ export default function Home() {
 
         <section>
           <figure className="overflow-hidden rounded-2xl bg-[#241d17]">
-            <div className="relative aspect-[16/10] w-full">
-              <Image
-                src="/karta.jpg"
-                alt="Karta som visar platsens läge i Stampen"
-                fill
-                sizes="100vw"
-                className="object-cover"
-              />
-            </div>
+            <ExpandableImage
+              src="/karta.jpg"
+              alt="Karta som visar platsens läge i Stampen"
+              sizes="100vw"
+              aspectClassName="aspect-[16/10]"
+            />
             <figcaption className="px-4 py-3 text-center text-sm text-[#b8ab9c]">
               Platsen är inringad på kartan.
             </figcaption>
