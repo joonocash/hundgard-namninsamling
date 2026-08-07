@@ -80,13 +80,22 @@ export default function Home() {
             Så illa är läget
           </p>
           <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-[#f0e6da]">
-            I Malmö går det ungefär <strong className="text-[#f2c879]">450 hundar</strong> per
-            hundrastgård. I Göteborg får vi dela på en rastgård per nästan{" "}
-            <strong className="text-[#e2703a]">2 500 hundar</strong> — mer än fem gånger så
-            många.
+            I Stockholm går det cirka <strong className="text-[#f2c879]">400 hundar</strong> per
+            rastgård och i Malmö cirka <strong className="text-[#f2c879]">450</strong>, medan
+            motsvarande siffra för Göteborg är nästan{" "}
+            <strong className="text-[#e2703a]">2 500 hundar</strong>.
           </p>
 
           <div className="mx-auto mt-8 max-w-md space-y-5">
+            <div>
+              <div className="flex items-baseline justify-between">
+                <span className="text-sm font-medium text-[#f0e6da]">Stockholm</span>
+                <span className="text-2xl font-bold text-[#f2c879]">400</span>
+              </div>
+              <div className="mt-2 h-3 rounded-full bg-[#171310]">
+                <div className="h-full rounded-full bg-[#f2c879]" style={{ width: "16%" }} />
+              </div>
+            </div>
             <div>
               <div className="flex items-baseline justify-between">
                 <span className="text-sm font-medium text-[#f0e6da]">Malmö</span>
