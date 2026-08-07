@@ -3,6 +3,7 @@ import CtaButton from "@/components/CtaButton";
 import Tracker from "@/components/Tracker";
 
 const CTA_URL = "[KLISTRA IN URL HÄR]";
+const MAP_URL = "https://www.google.com/maps?q=57.70790,11.98982&z=18";
 
 const features: { title: string; icon: React.ReactNode }[] = [
   {
@@ -158,7 +159,15 @@ export default function Home() {
               aspectClassName="aspect-[16/10]"
             />
             <figcaption className="px-4 py-3 text-center text-sm text-[#b8ab9c]">
-              Platsen är inringad på kartan.
+              Platsen är inringad på kartan.{" "}
+              <a
+                href={MAP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-[#e2703a] underline underline-offset-2 hover:text-[#c85f2e]"
+              >
+                Visa på Google Maps
+              </a>
             </figcaption>
           </figure>
         </section>
