@@ -75,6 +75,40 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="rounded-2xl bg-[#241d17] p-6 text-center">
+          <p className="text-sm font-semibold uppercase tracking-wide text-[#b8ab9c]">
+            Så illa är läget
+          </p>
+          <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-[#f0e6da]">
+            I Malmö går det ungefär <strong className="text-[#f2c879]">450 hundar</strong> per
+            hundrastgård. I Göteborg får vi dela på en rastgård per nästan{" "}
+            <strong className="text-[#e2703a]">2 500 hundar</strong> — mer än fem gånger så
+            många.
+          </p>
+
+          <div className="mx-auto mt-8 max-w-md space-y-5">
+            <div>
+              <div className="flex items-baseline justify-between">
+                <span className="text-sm font-medium text-[#f0e6da]">Malmö</span>
+                <span className="text-2xl font-bold text-[#f2c879]">450</span>
+              </div>
+              <div className="mt-2 h-3 rounded-full bg-[#171310]">
+                <div className="h-full rounded-full bg-[#f2c879]" style={{ width: "18%" }} />
+              </div>
+            </div>
+            <div>
+              <div className="flex items-baseline justify-between">
+                <span className="text-sm font-medium text-[#f0e6da]">Göteborg</span>
+                <span className="text-2xl font-bold text-[#e2703a]">2 500</span>
+              </div>
+              <div className="mt-2 h-3 rounded-full bg-[#171310]">
+                <div className="h-full rounded-full bg-[#e2703a]" style={{ width: "100%" }} />
+              </div>
+            </div>
+            <p className="text-xs text-[#b8ab9c]">Antal hundar per hundrastgård</p>
+          </div>
+        </section>
+
         <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <figure className="overflow-hidden rounded-2xl bg-[#241d17]">
             <ExpandableImage
