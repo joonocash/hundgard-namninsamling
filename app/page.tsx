@@ -11,25 +11,16 @@ const CITY_STATS: {
   dogsLabel: string;
   parks: number;
   parksLabel: string;
-  ratioLabel: string;
   highlight?: boolean;
 }[] = [
-  { name: "Malmö", dogs: 22300, dogsLabel: "~22 300", parks: 50, parksLabel: "~50", ratioLabel: "~450" },
-  {
-    name: "Stockholm",
-    dogs: 54000,
-    dogsLabel: "~54 000",
-    parks: 137,
-    parksLabel: "~135–140",
-    ratioLabel: "~390–400",
-  },
+  { name: "Malmö", dogs: 22300, dogsLabel: "~22 300", parks: 50, parksLabel: "~50" },
+  { name: "Stockholm", dogs: 54000, dogsLabel: "~54 000", parks: 137, parksLabel: "~135–140" },
   {
     name: "Göteborg",
     dogs: 30700,
     dogsLabel: "~30 700",
     parks: 13,
     parksLabel: "~12–14",
-    ratioLabel: "~2 200–2 500",
     highlight: true,
   },
 ];
@@ -113,32 +104,26 @@ export default function Home() {
           </p>
           <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-[#f0e6da]">
             Göteborg har fler hundar än Malmö men bara en bråkdel så många
-            hundrastgårdar — och långt färre än Stockholm. Resultatet: i Göteborg
-            delar hela{" "}
-            <strong className="text-[#e2703a]">2 200–2 500 hundar</strong> på
-            varje rastgård, jämfört med som mest{" "}
-            <strong className="text-[#f2c879]">450</strong> i Malmö och{" "}
-            <strong className="text-[#f2c879]">390–400</strong> i Stockholm.
+            hundrastgårdar — i Göteborg delar nästan{" "}
+            <strong className="text-[#e2703a]">2 500 hundar</strong> på varje
+            rastgård, jämfört med som mest{" "}
+            <strong className="text-[#f2c879]">450</strong> i de andra
+            städerna.
           </p>
 
-          <div className="mx-auto mt-8 max-w-md">
-            <p className="text-left text-xs font-semibold uppercase tracking-wide text-[#b8ab9c]">
-              Antal registrerade hundar
-            </p>
-            <div className="mt-3 space-y-4">
-              {CITY_STATS.map((city) => (
-                <div key={`dogs-${city.name}`}>
-                  <div className="flex items-baseline justify-between">
-                    <span className="text-sm font-medium text-[#f0e6da]">{city.name}</span>
-                    <span
-                      className={`text-lg font-bold ${
-                        city.highlight ? "text-[#e2703a]" : "text-[#f2c879]"
-                      }`}
-                    >
-                      {city.dogsLabel}
-                    </span>
-                  </div>
-                  <div className="mt-1.5 h-2.5 rounded-full bg-[#171310]">
+          <div className="mx-auto mt-8 max-w-md space-y-6 text-left">
+            {CITY_STATS.map((city) => (
+              <div key={city.name}>
+                <p
+                  className={`text-sm font-semibold ${
+                    city.highlight ? "text-[#e2703a]" : "text-[#f2c879]"
+                  }`}
+                >
+                  {city.name}
+                </p>
+                <div className="mt-2 flex items-center gap-2">
+                  <span className="w-20 shrink-0 text-xs text-[#b8ab9c]">Hundar</span>
+                  <div className="h-2 flex-1 rounded-full bg-[#171310]">
                     <div
                       className={`h-full rounded-full ${
                         city.highlight ? "bg-[#e2703a]" : "bg-[#f2c879]"
@@ -146,27 +131,13 @@ export default function Home() {
                       style={{ width: `${(city.dogs / maxCityDogs) * 100}%` }}
                     />
                   </div>
+                  <span className="w-16 shrink-0 text-right text-xs text-[#f0e6da]">
+                    {city.dogsLabel}
+                  </span>
                 </div>
-              ))}
-            </div>
-
-            <p className="mt-7 text-left text-xs font-semibold uppercase tracking-wide text-[#b8ab9c]">
-              Antal kommunala hundrastgårdar
-            </p>
-            <div className="mt-3 space-y-4">
-              {CITY_STATS.map((city) => (
-                <div key={`parks-${city.name}`}>
-                  <div className="flex items-baseline justify-between">
-                    <span className="text-sm font-medium text-[#f0e6da]">{city.name}</span>
-                    <span
-                      className={`text-lg font-bold ${
-                        city.highlight ? "text-[#e2703a]" : "text-[#f2c879]"
-                      }`}
-                    >
-                      {city.parksLabel}
-                    </span>
-                  </div>
-                  <div className="mt-1.5 h-2.5 rounded-full bg-[#171310]">
+                <div className="mt-1.5 flex items-center gap-2">
+                  <span className="w-20 shrink-0 text-xs text-[#b8ab9c]">Rastgårdar</span>
+                  <div className="h-2 flex-1 rounded-full bg-[#171310]">
                     <div
                       className={`h-full rounded-full ${
                         city.highlight ? "bg-[#e2703a]" : "bg-[#f2c879]"
@@ -174,29 +145,12 @@ export default function Home() {
                       style={{ width: `${(city.parks / maxCityParks) * 100}%` }}
                     />
                   </div>
+                  <span className="w-16 shrink-0 text-right text-xs text-[#f0e6da]">
+                    {city.parksLabel}
+                  </span>
                 </div>
-              ))}
-            </div>
-
-            <div className="mt-7 border-t border-white/10 pt-4">
-              <p className="text-left text-xs font-semibold uppercase tracking-wide text-[#b8ab9c]">
-                Hundar per rastgård
-              </p>
-              <div className="mt-3 flex justify-between gap-2">
-                {CITY_STATS.map((city) => (
-                  <div key={`ratio-${city.name}`} className="flex-1">
-                    <p
-                      className={`text-xl font-bold ${
-                        city.highlight ? "text-[#e2703a]" : "text-[#f2c879]"
-                      }`}
-                    >
-                      {city.ratioLabel}
-                    </p>
-                    <p className="mt-1 text-xs text-[#b8ab9c]">{city.name}</p>
-                  </div>
-                ))}
               </div>
-            </div>
+            ))}
           </div>
         </section>
 
