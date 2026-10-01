@@ -3,9 +3,11 @@
 export default function CtaButton({
   href,
   children,
+  className = "",
 }: {
   href: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   function handleClick() {
     // Fire-and-forget: the link must work even if this fails or is slow.
@@ -23,7 +25,7 @@ export default function CtaButton({
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleClick}
-      className="inline-block rounded-full bg-[#e2703a] px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-black/30 transition hover:bg-[#c85f2e]"
+      className={`inline-flex min-h-12 items-center justify-center rounded-2xl bg-brand px-5 text-base font-bold text-brand-ink transition hover:bg-brand-hover ${className}`}
     >
       {children}
     </a>

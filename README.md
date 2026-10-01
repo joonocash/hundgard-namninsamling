@@ -7,8 +7,8 @@ backend-API — bara en informationssida med bilder och en CTA-knapp.
 ## Innan du kör något
 
 Fyll i den riktiga länken till namninsamlingen i [app/page.tsx](app/page.tsx)
-(sök efter `[KLISTRA IN URL HÄR]`, förekommer på två ställen: hero och
-avslutande CTA).
+(sök efter `[KLISTRA IN URL HÄR]` i konstanten `CTA_URL`). Den används av
+skriv under-knappen som följer med längst ner på skärmen.
 
 ## Lokal utveckling
 
